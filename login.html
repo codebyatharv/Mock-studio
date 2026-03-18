@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MockUp – Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--p:#7c3aed;--p2:#6d28d9;--p3:#ede9fe;--p4:#f5f3ff;--ink:#111827;--gray:#6b7280;--border:#e5e7eb}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:"DM Sans",sans-serif;display:flex;align-items:stretch;background:#fff}
+.left{width:400px;flex-shrink:0;background:var(--p);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:48px 42px;justify-content:space-between}
+.left::before{content:"";position:absolute;top:-110px;left:-80px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none}
+.left::after{content:"";position:absolute;bottom:-90px;right:-70px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none}
+.lmc{position:absolute;bottom:32%;left:-55px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,0.06);pointer-events:none}
+.logo{font-family:"Syne",sans-serif;font-size:1.9rem;font-weight:800;color:#fff;letter-spacing:-1px;position:relative;z-index:1}
+.logo-sub{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;position:relative;z-index:1}
+.lb{position:relative;z-index:1}
+.lb h2{font-family:"Syne",sans-serif;font-size:1.9rem;font-weight:800;color:#fff;line-height:1.2;letter-spacing:-0.5px;margin-bottom:12px}
+.lb h2 span{color:rgba(255,255,255,0.45)}
+.lb p{font-size:0.84rem;color:rgba(255,255,255,0.62);line-height:1.7;margin-bottom:24px}
+.fl{display:flex;flex-direction:column;gap:9px}
+.fi{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,0.1);border-radius:10px;padding:10px 13px;font-size:0.8rem;color:rgba(255,255,255,0.82);font-weight:500}
+.fis{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0}
+.sp{position:relative;z-index:1;display:flex;justify-content:center;margin-top:16px}
+.sp svg{width:110px;filter:drop-shadow(0 10px 28px rgba(0,0,0,0.22))}
+.lf{position:relative;z-index:1;font-size:0.7rem;color:rgba(255,255,255,0.28)}
+.right{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 36px;overflow-y:auto;background:#fff;position:relative}
+.right::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(124,58,237,0.05) 0%,transparent 50%),radial-gradient(circle at 10% 90%,rgba(124,58,237,0.04) 0%,transparent 40%);pointer-events:none}
+.fw{width:100%;max-width:380px;position:relative;z-index:1}
+.bk{display:inline-flex;align-items:center;gap:5px;font-size:0.8rem;color:var(--gray);text-decoration:none;margin-bottom:20px;transition:color .2s}
+.bk:hover{color:var(--p)}
+.fh{margin-bottom:22px}
+.fh h1{font-family:"Syne",sans-serif;font-size:1.6rem;font-weight:800;color:var(--ink);letter-spacing:-0.5px;margin-bottom:4px}
+.fh p{font-size:0.85rem;color:var(--gray)}
+.fh p a{color:var(--p);font-weight:600;text-decoration:none}
+.fh p a:hover{text-decoration:underline}
+.tabs{display:flex;background:var(--p4);border-radius:12px;padding:4px;margin-bottom:22px}
+.tab{flex:1;padding:9px;background:none;border:none;font-family:"DM Sans",sans-serif;font-size:0.86rem;font-weight:600;color:var(--gray);cursor:pointer;border-radius:9px;transition:all .2s}
+.tab.on{background:#fff;color:var(--p);box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.fs{display:none}
+.fs.on{display:block}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:0.7rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#9ca3af;margin-bottom:6px}
+.field input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:11px;font-family:"DM Sans",sans-serif;font-size:0.9rem;background:#fafaf9;color:var(--ink);outline:none;transition:all .2s}
+.field input:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 4px rgba(124,58,237,0.1)}
+.field input::placeholder{color:#d1d5db}
+.btn-s{width:100%;padding:12px;background:var(--p);color:#fff;border:none;border-radius:12px;font-family:"DM Sans",sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:all .2s;box-shadow:0 4px 16px rgba(124,58,237,0.35);margin-top:2px}
+.btn-s:hover{background:var(--p2);transform:translateY(-1px)}
+.btn-s:active{transform:scale(.98)}
+.err{color:#dc2626;font-size:0.76rem;margin-top:8px;display:none;padding:8px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px}
+.divl{text-align:center;color:#d1d5db;font-size:0.74rem;margin:14px 0;position:relative}
+.divl::before,.divl::after{content:"";position:absolute;top:50%;width:42%;height:1px;background:var(--border)}
+.divl::before{left:0}.divl::after{right:0}
+.tbox{background:var(--p4);border:1.5px dashed rgba(124,58,237,0.3);border-radius:12px;padding:12px 14px;font-size:0.78rem;color:#374151;line-height:1.9}
+.tbox strong{font-weight:700;color:var(--ink)}
+.tbl{font-size:0.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--p);margin-bottom:4px;display:block}
+@media(max-width:780px){body{flex-direction:column;overflow:auto;height:auto}html,body{height:auto}.left{width:100%;padding:28px 20px}.sp{display:none}.right{padding:28px 18px}}
+</style>
+</head>
+<body>
+<div class="left">
+  <div class="lmc"></div>
+  <div><div class="logo">MockUp</div><div class="logo-sub">Custom Apparel Studio</div></div>
+  <div class="lb">
+    <h2>Design your <span>perfect</span> custom tee</h2>
+    <p>Upload artwork, place it on our live 2D mockup, and get it printed for just Rs.299 per piece.</p>
+    <div class="fl">
+      <div class="fi"><div class="fis">&#128444;</div>Live 2D mockup — front &amp; back together</div>
+      <div class="fi"><div class="fis">&#127912;</div>12 garment colours, live preview</div>
+      <div class="fi"><div class="fis">&#128230;</div>Rs.299 per piece all-inclusive</div>
+      <div class="fi"><div class="fis">&#9889;</div>Any UPI app — GPay, PhonePe, Paytm</div>
+    </div>
+    <div class="sp">
+      <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55,14 C68,2 88,0 108,0 C128,0 148,2 161,14 L196,42 L200,92 L162,80 L160,230 L56,230 L54,80 L16,92 L20,42 Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+        <path d="M79,8 C84,28 132,28 137,8" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+        <rect x="76" y="90" width="64" height="52" rx="4" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="108" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">YOUR DESIGN</text>
+      </svg>
+    </div>
+  </div>
+  <div class="lf">2025 MockUp Studio</div>
+</div>
+<div class="right">
+  <div class="fw">
+    <a href="index.html" class="bk">&#8592; Back to home</a>
+    <div class="fh">
+      <h1 id="ftitle">Welcome back</h1>
+      <p id="fsub">New here? <a href="#" onclick="swTab('signup');return false">Create a free account</a></p>
+    </div>
+    <div class="tabs">
+      <button class="tab on" id="tl" onclick="swTab('login')">Sign In</button>
+      <button class="tab"    id="ts" onclick="swTab('signup')">Create Account</button>
+    </div>
+    <!-- LOGIN -->
+    <div class="fs on" id="sl">
+      <div class="field"><label>Gmail Address</label><input type="email" id="le" placeholder="you@gmail.com" autocomplete="email"/></div>
+      <div class="field"><label>Password</label><input type="password" id="lp" placeholder="Your password" autocomplete="current-password"/></div>
+      <button class="btn-s" onclick="doLogin()">Sign In &#8594;</button>
+      <div class="err" id="lerr">Incorrect email or password. Please try again.</div>
+      <div class="divl">test account</div>
+      <div class="tbox"><span class="tbl">&#128522; Test Credentials</span>Email: <strong>test@gmail.com</strong><br/>Password: <strong>test123</strong></div>
+    </div>
+    <!-- SIGNUP -->
+    <div class="fs" id="ss">
+      <div class="field"><label>Full Name</label><input type="text" id="rn" placeholder="John Doe" autocomplete="name"/></div>
+      <div class="field"><label>Gmail Address</label><input type="email" id="re" placeholder="you@gmail.com" autocomplete="email"/></div>
+      <div class="field"><label>Password (min 6 chars)</label><input type="password" id="rp" placeholder="Create a password" autocomplete="new-password"/></div>
+      <div class="field"><label>Confirm Password</label><input type="password" id="rc" placeholder="Repeat your password" autocomplete="new-password"/></div>
+      <button class="btn-s" onclick="doSignup()">Create Account &#8594;</button>
+      <div class="err" id="rerr">Please check all fields and try again.</div>
+    </div>
+  </div>
+</div>
+<script>
+/* ── AUTH SYSTEM ──
+   Accounts are stored in localStorage as JSON.
+   Key: "mockup_users"  Value: { "email": "hashed_password" }
+   We use a simple SHA-like hash (djb2) — not cryptographic, but
+   prevents plain-text password storage and stops casual bypassing.
+   Test account (test@gmail.com / test123) is always authorised.
+*/
+
+// djb2 hash — deterministic, not reversible from localStorage alone
+function hashPass(str) {
+  var h = 5381;
+  for (var i = 0; i < str.length; i++) {
+    h = ((h << 5) + h) + str.charCodeAt(i);
+    h = h & h; // 32-bit int
+  }
+  return h.toString(16);
+}
+
+function getUsers() {
+  try {
+    return JSON.parse(localStorage.getItem("mockup_users") || "{}");
+  } catch(e) { return {}; }
+}
+
+function saveUsers(users) {
+  localStorage.setItem("mockup_users", JSON.stringify(users));
+}
+
+var TITLES = { login: "Welcome back", signup: "Create your account" };
+var SUBS = {
+  login:  "New here? <a href='#' onclick='swTab(\"signup\");return false'>Create a free account</a>",
+  signup: "Already have an account? <a href='#' onclick='swTab(\"login\");return false'>Sign in</a>"
+};
+
+function swTab(t) {
+  document.getElementById("tl").classList.toggle("on", t === "login");
+  document.getElementById("ts").classList.toggle("on", t === "signup");
+  document.getElementById("sl").classList.toggle("on", t === "login");
+  document.getElementById("ss").classList.toggle("on", t === "signup");
+  document.getElementById("ftitle").textContent = TITLES[t];
+  document.getElementById("fsub").innerHTML = SUBS[t];
+  // Clear errors
+  document.getElementById("lerr").style.display = "none";
+  document.getElementById("rerr").style.display = "none";
+}
+
+function doLogin() {
+  var e   = document.getElementById("le").value.trim().toLowerCase();
+  var p   = document.getElementById("lp").value;
+  var err = document.getElementById("lerr");
+
+  // Validate format first
+  if (!e || !p) { err.style.display = "block"; return; }
+
+  // Test account (always works)
+  if (e === "test@gmail.com" && p === "test123") {
+    err.style.display = "none";
+    sessionStorage.setItem("pc_user", e);
+    location.href = "designer.html";
+    return;
+  }
+
+  // Check registered users
+  var users = getUsers();
+  var stored = users[e];
+  if (!stored || stored !== hashPass(p)) {
+    err.style.display = "block";
+    err.textContent = "Incorrect email or password. Please try again or create an account.";
+    return;
+  }
+
+  err.style.display = "none";
+  sessionStorage.setItem("pc_user", e);
+  location.href = "designer.html";
+}
+
+function doSignup() {
+  var n   = document.getElementById("rn").value.trim();
+  var e   = document.getElementById("re").value.trim().toLowerCase();
+  var p   = document.getElementById("rp").value;
+  var c   = document.getElementById("rc").value;
+  var err = document.getElementById("rerr");
+
+  // Validations
+  if (!n) {
+    err.textContent = "Please enter your full name.";
+    err.style.display = "block"; return;
+  }
+  if (!e.endsWith("@gmail.com")) {
+    err.textContent = "Please use a valid Gmail address (must end with @gmail.com).";
+    err.style.display = "block"; return;
+  }
+  if (p.length < 6) {
+    err.textContent = "Password must be at least 6 characters.";
+    err.style.display = "block"; return;
+  }
+  if (p !== c) {
+    err.textContent = "Passwords do not match. Please try again.";
+    err.style.display = "block"; return;
+  }
+
+  // Check if email already registered
+  var users = getUsers();
+  if (users[e]) {
+    err.textContent = "This email is already registered. Please sign in instead.";
+    err.style.display = "block"; return;
+  }
+
+  // Save new user (hashed password)
+  users[e] = hashPass(p);
+  saveUsers(users);
+
+  err.style.display = "none";
+  sessionStorage.setItem("pc_user", e);
+  location.href = "designer.html";
+}
+
+// Enter key support
+document.addEventListener("keydown", function(e) {
+  if (e.key !== "Enter") return;
+  if (document.getElementById("sl").classList.contains("on")) doLogin();
+  else doSignup();
+});
+
+// Already logged in → go straight to designer
+if (sessionStorage.getItem("pc_user")) location.href = "designer.html";
+</script>
+</body>
+</html>

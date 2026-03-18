@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MockUp – Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ─── RESET ─── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --p:#7c3aed;--p2:#6d28d9;--p3:#ede9fe;--p4:#f5f3ff;
+  --ink:#111827;--gray:#6b7280;--border:#e5e7eb;
+  --nav:54px;--sb:272px;--rp:220px;
+}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);display:flex;flex-direction:column;background:#f0edf8}
+
+/* ─── PRICE FONT (Times New Roman everywhere) ─── */
+.price-font{font-family:'Times New Roman',Times,serif !important}
+
+/* ─── NAV ─── */
+nav{
+  height:var(--nav);background:#fff;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;flex-shrink:0;
+  box-shadow:0 1px 6px rgba(0,0,0,.06);
+}
+.nlogo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--p)}
+.nc{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--gray);font-weight:500}
+.nc span{background:var(--p3);color:var(--p);font-size:.65rem;font-weight:700;padding:2px 9px;border-radius:20px}
+.nr{display:flex;align-items:center;gap:11px}
+.nu{font-size:.76rem;color:var(--gray);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.blo{padding:6px 13px;background:none;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:600;color:var(--gray);cursor:pointer;transition:all .2s}
+.blo:hover{border-color:var(--p);color:var(--p)}
+
+/* ─── STUDIO LAYOUT ─── */
+.studio{display:flex;flex:1;height:calc(100vh - var(--nav));overflow:hidden}
+
+/* ─── LEFT SIDEBAR ─── */
+.sb{
+  width:var(--sb);background:#fff;
+  border-right:1px solid var(--border);
+  overflow-y:auto;flex-shrink:0;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.sb::-webkit-scrollbar{width:4px}
+.sb::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.sbs{padding:14px 13px;border-bottom:1px solid var(--border)}
+.sbt{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af;margin-bottom:10px}
+
+/* Colour swatches */
+.cg{display:flex;flex-wrap:wrap;gap:7px}
+.sw{
+  width:27px;height:27px;border-radius:50%;
+  border:2.5px solid transparent;cursor:pointer;
+  transition:transform .15s;position:relative;
+}
+.sw::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid transparent;transition:border-color .15s}
+.sw:hover{transform:scale(1.2)}
+.sw.sl::after{border-color:var(--p)}
+.sw.sl{transform:scale(1.1)}
+
+/* Size buttons */
+.szrow{display:flex;flex-wrap:wrap;gap:5px}
+.sz{
+  padding:5px 10px;border:1.5px solid var(--border);
+  border-radius:7px;background:none;
+  font-family:'DM Sans',sans-serif;font-size:.77rem;font-weight:600;
+  color:var(--ink);cursor:pointer;transition:all .15s;
+}
+.sz:hover{border-color:var(--p)}
+.sz.sl{background:var(--p);color:#fff;border-color:var(--p)}
+
+/* Quantity */
+.qty-row{
+  display:flex;align-items:center;gap:8px;
+  margin-top:4px;
+}
+.qty-btn{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--p3);border:1.5px solid var(--p3);
+  color:var(--p);font-size:1.1rem;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;flex-shrink:0;line-height:1;
+}
+.qty-btn:hover{background:var(--p);color:#fff;border-color:var(--p)}
+#qty-input{
+  width:72px;height:30px;
+  border:1.5px solid var(--border);border-radius:8px;
+  font-family:'Times New Roman',Times,serif;
+  font-size:.95rem;font-weight:700;
+  text-align:center;color:var(--ink);
+  background:#fafaf9;outline:none;
+  transition:border .2s;
+}
+#qty-input:focus{border-color:var(--p);background:#fff}
+.qty-note{font-size:.68rem;color:#9ca3af;margin-top:5px}
+
+/* Upload */
+.uz{
+  border:2px dashed var(--border);border-radius:10px;
+  padding:16px 10px;text-align:center;
+  cursor:pointer;background:#fafaf9;transition:all .2s;
+}
+.uz:hover{border-color:var(--p);background:var(--p4)}
+.uzi{font-size:1.5rem;margin-bottom:5px}
+.uz p{font-size:.72rem;color:#9ca3af;line-height:1.5}
+.uz p b{color:var(--gray)}
+#fi{display:none}
+
+/* Sliders */
+.ctrl{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.ctrl label{font-size:.72rem;color:var(--gray);font-weight:600;width:44px;flex-shrink:0}
+.ctrl input[type=range]{flex:1;accent-color:var(--p);cursor:pointer;height:4px}
+.cv{font-size:.69rem;font-weight:700;color:var(--ink);width:34px;text-align:right;flex-shrink:0}
+
+/* Text tools */
+.tf{
+  width:100%;padding:7px 10px;
+  border:1.5px solid var(--border);border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.84rem;
+  background:#fafaf9;outline:none;margin-bottom:7px;
+  transition:border .2s,box-shadow .2s;
+}
+.tf:focus{border-color:var(--p);background:#fff;box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+.tc{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.tc label{font-size:.72rem;color:var(--gray);font-weight:600}
+.tc input[type=color]{width:30px;height:26px;border:none;background:none;cursor:pointer;border-radius:4px}
+.tc input[type=range]{flex:1;accent-color:var(--p)}
+.tc span{font-size:.69rem;font-weight:700;color:var(--ink);width:22px}
+.ba{
+  width:100%;padding:9px;
+  background:var(--p);color:#fff;
+  border:none;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;
+  cursor:pointer;transition:background .2s;
+}
+.ba:hover{background:var(--p2)}
+.brm{
+  width:100%;padding:7px;margin-top:6px;
+  background:none;color:#9ca3af;
+  border:1.5px solid var(--border);border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;
+  cursor:pointer;transition:all .2s;display:none;
+}
+.brm:hover{color:#dc2626;border-color:#dc2626}
+
+/* ─── CANVAS AREA ─── */
+.cw{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 40%,rgba(124,58,237,.06) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,.02) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,.02) 40px),
+    #f0edf8;
+}
+.slbl{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  font-family:'Syne',sans-serif;font-size:.66rem;letter-spacing:2px;
+  color:rgba(124,58,237,.2);text-transform:uppercase;pointer-events:none;
+}
+
+/*
+  ═══════════════════════════════════════════════════════
+  SHIRT CONTAINER
+  Shows BOTH front and back simultaneously, side by side.
+  The uploaded white_realistic_t_shirt has front(left) + back(right).
+  We display the image at full width so both halves show together.
+  CSS canvas-overlay changes colour using mix-blend-mode:multiply.
+  ═══════════════════════════════════════════════════════
+*/
+#shirt-container{
+  position:relative;
+  flex-shrink:0;
+  overflow:hidden;
+  border-radius:16px;
+  box-shadow:0 4px 8px rgba(0,0,0,.06),0 12px 32px rgba(0,0,0,.12),0 32px 64px rgba(0,0,0,.16);
+  background:#fff;
+  user-select:none;
+}
+
+/* The shirt image — shown at FULL width (both panels visible) */
+#shirt-img{
+  display:block;
+  width:100%;height:100%;
+  object-fit:contain;
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:none;
+}
+
+/*
+  COLOUR TINT OVERLAY
+  The shirt photo is WHITE. To colour it, we put a coloured div on top
+  with mix-blend-mode:multiply. White × Color = Color. Works perfectly.
+  For black (#111) we use a dark layer with opacity blend instead.
+*/
+#shirt-tint{
+  position:absolute;inset:0;
+  border-radius:16px;
+  pointer-events:none;
+  opacity:0;
+  transition:background .3s,opacity .3s,mix-blend-mode .1s;
+}
+
+/* Design print layer — overflow:hidden is the hard clamp */
+#design-layer{
+  position:absolute;inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+/* Draggable uploaded design */
+#design-el{
+  position:absolute;display:none;
+  cursor:grab;pointer-events:all;
+  transform-origin:center center;
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.3));
+}
+#design-el:active{cursor:grabbing}
+#design-el img{
+  display:block;width:100%;
+  pointer-events:none;
+}
+
+/* Draggable text */
+#text-el{
+  position:absolute;display:none;
+  cursor:grab;pointer-events:all;
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:28px;color:#111;
+  white-space:nowrap;
+  text-shadow:0 1px 4px rgba(0,0,0,.2);
+  transform-origin:center center;
+}
+#text-el:active{cursor:grabbing}
+
+/* Selection ring */
+.ring{outline:2.5px dashed rgba(124,58,237,.75);outline-offset:4px;border-radius:2px}
+
+/* "Design Area" hint */
+#drop-hint{
+  position:absolute;top:45%;left:28%;
+  transform:translate(-50%,-50%);
+  text-align:center;pointer-events:none;
+  opacity:.3;transition:opacity .3s;z-index:5;
+}
+#drop-hint.gone{opacity:0}
+.dhi{font-size:1.4rem}
+.dht{font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#555;margin-top:4px}
+
+/* Front/Back labels on canvas */
+.view-label{
+  position:absolute;bottom:10px;
+  background:rgba(0,0,0,.48);color:#fff;
+  font-size:.6rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;padding:4px 12px;
+  border-radius:20px;pointer-events:none;
+  backdrop-filter:blur(4px);white-space:nowrap;
+}
+#lbl-front{left:25%;transform:translateX(-50%)}
+#lbl-back{right:25%;transform:translateX(50%)}
+
+/* ─── RIGHT PANEL ─── */
+.rp{
+  width:var(--rp);background:#fff;
+  border-left:1px solid var(--border);
+  padding:14px 13px;
+  display:flex;flex-direction:column;gap:12px;
+  flex-shrink:0;overflow-y:auto;
+}
+.rpt{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af}
+.gt{font-size:.8rem;font-weight:600;color:var(--ink);background:var(--p4);padding:8px 10px;border-radius:9px;border:1px solid var(--p3);margin-top:5px}
+
+/* Order summary */
+.sum{background:#f9fafb;border-radius:10px;padding:13px;flex:1}
+.sumr{display:flex;justify-content:space-between;font-size:.8rem;color:var(--gray);padding:5px 0;border-bottom:1px solid #f3f4f6}
+.sumr:last-of-type{border:none}
+.sumr span:last-child{font-weight:700;color:var(--ink)}
+
+/* Price display — Times New Roman */
+.price-display{
+  font-family:'Times New Roman',Times,serif;
+  font-size:1.85rem;font-weight:700;
+  color:var(--p);letter-spacing:-0.5px;
+  margin-top:8px;line-height:1;
+}
+.price-unit{font-size:.68rem;color:#9ca3af;margin-top:2px;font-family:'DM Sans',sans-serif}
+.price-breakdown{
+  font-family:'Times New Roman',Times,serif;
+  font-size:.78rem;color:var(--gray);
+  margin-top:4px;
+}
+
+.bpay{
+  width:100%;padding:13px;
+  background:var(--p);color:#fff;
+  border:none;border-radius:11px;
+  font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  box-shadow:0 4px 14px rgba(124,58,237,.35);
+}
+.bpay:hover{background:var(--p2);box-shadow:0 6px 20px rgba(124,58,237,.45)}
+.bpay:active{transform:scale(.97)}
+.warn{font-size:.72rem;color:#dc2626;display:none;margin-top:6px;text-align:center}
+
+@media(max-width:960px){.rp{display:none}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nlogo">MockUp</div>
+  <div class="nc">Design Studio <span>BETA</span></div>
+  <div class="nr">
+    <span class="nu" id="nu"></span>
+    <button class="blo" onclick="doLogout()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="studio">
+
+  <!-- ═══ LEFT SIDEBAR ═══ -->
+  <div class="sb">
+
+    <!-- COLOUR -->
+    <div class="sbs">
+      <div class="sbt">Garment Colour</div>
+      <div class="cg">
+        <div class="sw" style="background:#111;box-shadow:inset 0 0 0 1px #444"  onclick="setColor(this,'#111111','Black')"   title="Black"></div>
+        <div class="sw sl" style="background:#fff;box-shadow:inset 0 0 0 1px #ccc" onclick="setColor(this,'#ffffff','White')" title="White"></div>
+        <div class="sw" style="background:#e84c1e" onclick="setColor(this,'#e84c1e','Red')"    title="Red"></div>
+        <div class="sw" style="background:#2563eb" onclick="setColor(this,'#2563eb','Blue')"   title="Blue"></div>
+        <div class="sw" style="background:#16a34a" onclick="setColor(this,'#16a34a','Green')"  title="Green"></div>
+        <div class="sw" style="background:#f59e0b" onclick="setColor(this,'#f59e0b','Yellow')" title="Yellow"></div>
+        <div class="sw" style="background:#7c3aed" onclick="setColor(this,'#7c3aed','Purple')" title="Purple"></div>
+        <div class="sw" style="background:#9ca3af" onclick="setColor(this,'#9ca3af','Gray')"   title="Gray"></div>
+        <div class="sw" style="background:#be185d" onclick="setColor(this,'#be185d','Pink')"   title="Pink"></div>
+        <div class="sw" style="background:#0891b2" onclick="setColor(this,'#0891b2','Teal')"   title="Teal"></div>
+        <div class="sw" style="background:#854d0e" onclick="setColor(this,'#854d0e','Brown')"  title="Brown"></div>
+        <div class="sw" style="background:#1e293b" onclick="setColor(this,'#1e293b','Navy')"   title="Navy"></div>
+      </div>
+    </div>
+
+    <!-- SIZE -->
+    <div class="sbs">
+      <div class="sbt">Size</div>
+      <div class="szrow">
+        <button class="sz"     onclick="setSize(this,'XS')">XS</button>
+        <button class="sz"     onclick="setSize(this,'S')">S</button>
+        <button class="sz sl"  onclick="setSize(this,'M')">M</button>
+        <button class="sz"     onclick="setSize(this,'L')">L</button>
+        <button class="sz"     onclick="setSize(this,'XL')">XL</button>
+        <button class="sz"     onclick="setSize(this,'XXL')">XXL</button>
+      </div>
+    </div>
+
+    <!-- QUANTITY -->
+    <div class="sbs">
+      <div class="sbt">Quantity (0 – 9999)</div>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <input type="number" id="qty-input" value="1" min="0" max="9999"
+               oninput="onQtyInput(this.value)" onblur="onQtyBlur(this.value)"/>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <div class="qty-note">Enter 0–9999. Price updates automatically.</div>
+    </div>
+
+    <!-- UPLOAD DESIGN -->
+    <div class="sbs">
+      <div class="sbt">Upload Design (Front)</div>
+      <div class="uz" onclick="document.getElementById('fi').click()">
+        <div class="uzi">🖼️</div>
+        <p><b>Click or drag & drop</b><br/>PNG · JPG · SVG<br/><small style="color:#c4b5fd">Transparent PNG best</small></p>
+      </div>
+      <input type="file" id="fi" accept="image/*" onchange="onFileSelect(event)"/>
+      <button class="brm" id="btn-rm-d" onclick="removeDesign()">✕ Remove Design</button>
+    </div>
+
+    <!-- ADJUST DESIGN -->
+    <div class="sbs">
+      <div class="sbt">Adjust Design</div>
+      <div class="ctrl">
+        <label>Scale</label>
+        <input type="range" id="sl-sc" min="3" max="55" value="18" oninput="onScale(this.value)"/>
+        <span class="cv" id="v-sc">18%</span>
+      </div>
+      <div class="ctrl">
+        <label>Rotate</label>
+        <input type="range" id="sl-ro" min="-180" max="180" value="0" oninput="onRotate(this.value)"/>
+        <span class="cv" id="v-ro">0°</span>
+      </div>
+      <div class="ctrl">
+        <label>Opacity</label>
+        <input type="range" id="sl-op" min="10" max="100" value="92" oninput="onOpacity(this.value)"/>
+        <span class="cv" id="v-op">92%</span>
+      </div>
+    </div>
+
+    <!-- ADD TEXT -->
+    <div class="sbs">
+      <div class="sbt">Add Text</div>
+      <input class="tf" id="txt-inp" type="text" placeholder="Your text here…" maxlength="24"/>
+      <div class="tc">
+        <label>Color</label>
+        <input type="color" id="txt-col" value="#111111"/>
+        <label>Size</label>
+        <input type="range" id="txt-sz" min="10" max="72" value="26" oninput="onTxtSize(this.value)"/>
+        <span id="v-ts">26</span>
+      </div>
+      <button class="ba" onclick="addText()">＋ Add to Garment</button>
+      <button class="brm" id="btn-rm-t" onclick="removeText()">✕ Remove Text</button>
+    </div>
+
+  </div><!-- /sidebar -->
+
+  <!-- ═══ CANVAS AREA ═══ -->
+  <div class="cw" id="canvas-wrap">
+    <div class="slbl">MockUp Studio — Front &amp; Back Preview</div>
+
+    <!--
+      shirt-container shows the FULL side-by-side t-shirt image
+      (front on left half, back on right half).
+      The user can drag their design onto either half.
+      Colour tint uses CSS mix-blend-mode:multiply on the white shirt.
+
+      FILE NEEDED: Save the white t-shirt image as "tshirt.jpg"
+      in the same folder. It must be the side-by-side version
+      (front left, back right) like the image you uploaded.
+    -->
+    <div id="shirt-container">
+      <img id="shirt-img"
+           src="tshirt.jpg"
+           alt="T-Shirt"
+           draggable="false"
+           onload="onShirtLoad(this)"
+           onerror="onShirtError()"/>
+
+      <!-- Colour tint — transparent by default (white shirt stays white) -->
+      <div id="shirt-tint"></div>
+
+      <!-- Design + text layer — overflow:hidden prevents escape -->
+      <div id="design-layer">
+        <div id="design-el"><img id="design-img" src="" alt=""/></div>
+        <div id="text-el"></div>
+      </div>
+
+      <!-- Drop hint -->
+      <div id="drop-hint">
+        <div class="dhi">✦</div>
+        <div class="dht">Design Area</div>
+      </div>
+
+      <!-- Front / Back labels -->
+      <div class="view-label" id="lbl-front">Front</div>
+      <div class="view-label" id="lbl-back">Back</div>
+    </div>
+
+  </div><!-- /canvas-wrap -->
+
+  <!-- ═══ RIGHT PANEL ═══ -->
+  <div class="rp">
+
+    <div>
+      <div class="rpt">Garment</div>
+      <div class="gt">👕 T-Shirt / Sweatshirt</div>
+    </div>
+
+    <div class="sum">
+      <div class="rpt" style="margin-bottom:9px">Order Summary</div>
+      <div class="sumr"><span>Size</span>     <span id="s-sz">M</span></div>
+      <div class="sumr"><span>Colour</span>   <span id="s-cl">White</span></div>
+      <div class="sumr"><span>Qty</span>       <span id="s-qty" class="price-font">1</span></div>
+      <div class="sumr"><span>Unit Price</span><span class="price-font">₹299</span></div>
+
+      <!-- Total price in Times New Roman -->
+      <div class="price-display" id="total-price">₹299</div>
+      <div class="price-breakdown" id="price-breakdown">1 × ₹299</div>
+      <div class="price-unit">incl. printing + delivery per piece</div>
+    </div>
+
+    <div>
+      <button class="bpay" onclick="doProceed()">Proceed to Pay →</button>
+      <div class="warn" id="warn-msg">⚠ Upload a design or add text first</div>
+    </div>
+
+  </div><!-- /right panel -->
+
+</div><!-- /studio -->
+
+<script>
+/* ════════════════════════════════════════
+   STATE
+════════════════════════════════════════ */
+var G = {
+  size:    'M',
+  color:   '#ffffff',
+  cname:   'White',
+  qty:     1,
+  scale:   18,
+  rotate:  0,
+  opacity: 92,
+  dx: 0, dy: 0,   // design centre (px from container left/top)
+  tx: 0, ty: 0,   // text centre
+  tsize:   26,
+  cw: 0, ch: 0    // container dimensions (set on load)
+};
+var UNIT_PRICE = 299;
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', function() {
+  // Auth guard
+  var user = sessionStorage.getItem('pc_user');
+  if (!user) { location.href = 'login.html'; return; }
+  document.getElementById('nu').textContent = user;
+
+  // Drag-and-drop files onto canvas
+  var wrap = document.getElementById('canvas-wrap');
+  wrap.addEventListener('dragover', function(e){ e.preventDefault(); });
+  wrap.addEventListener('drop', function(e){
+    e.preventDefault();
+    var f = e.dataTransfer.files[0];
+    if (f && f.type.startsWith('image/')) readFile(f);
+  });
+
+  // Make design and text draggable (constrained inside container)
+  initDrag(document.getElementById('design-el'), 'design');
+  initDrag(document.getElementById('text-el'), 'text');
+
+  // Deselect ring on outside click
+  document.addEventListener('mousedown', function(e) {
+    if (!e.target.closest('#design-el')) document.getElementById('design-el').classList.remove('ring');
+    if (!e.target.closest('#text-el'))   document.getElementById('text-el').classList.remove('ring');
+  });
+
+  updatePrice();
+});
+
+function doLogout() {
+  sessionStorage.clear();
+  location.href = 'login.html';
+}
+
+/* ════════════════════════════════════════
+   SHIRT IMAGE LOAD / ERROR
+════════════════════════════════════════ */
+function onShirtLoad(img) {
+  var wrap = document.getElementById('canvas-wrap');
+  var cont = document.getElementById('shirt-container');
+
+  // Available space
+  var maxH = wrap.clientHeight - 40;
+  var maxW = wrap.clientWidth  - 60;
+
+  // Natural aspect ratio of full image (both panels side by side)
+  var asp = img.naturalWidth / img.naturalHeight;
+  var h = maxH, w = h * asp;
+  if (w > maxW) { w = maxW; h = w / asp; }
+
+  cont.style.width  = Math.floor(w) + 'px';
+  cont.style.height = Math.floor(h) + 'px';
+
+  G.cw = Math.floor(w);
+  G.ch = Math.floor(h);
+
+  // Default design position: chest area of front (left panel ~25% across)
+  G.dx = G.cw * 0.25;
+  G.dy = G.ch * 0.38;
+  G.tx = G.cw * 0.25;
+  G.ty = G.ch * 0.55;
+
+  // Position labels
+  document.getElementById('lbl-front').style.left = '25%';
+  document.getElementById('lbl-front').style.transform = 'translateX(-50%)';
+  document.getElementById('lbl-back').style.right = '';
+  document.getElementById('lbl-back').style.left = '75%';
+  document.getElementById('lbl-back').style.transform = 'translateX(-50%)';
+}
+
+function onShirtError() {
+  // Fallback SVG shirt if tshirt.jpg not found
+  var cont = document.getElementById('shirt-container');
+  document.getElementById('shirt-img').style.display = 'none';
+  cont.style.width  = '600px';
+  cont.style.height = '380px';
+  cont.style.background = '#eee';
+
+  var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 600 380');
+  svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%';
+
+  // background
+  svg.innerHTML =
+    '<rect width="600" height="380" fill="#e8e4f0" rx="16"/>' +
+    // FRONT shirt
+    '<path id="svg-front" d="M80,30 C95,12 125,6 160,6 C195,6 225,12 240,30 L280,58 L284,120 L240,106 L238,368 L82,368 L80,106 L36,120 L40,58 Z" fill="#fff" stroke="#ccc" stroke-width="1.5"/>' +
+    '<path d="M124,20 C132,46 188,46 196,20" fill="none" stroke="#ccc" stroke-width="1.5"/>' +
+    // BACK shirt
+    '<path id="svg-back" d="M365,30 C380,12 410,6 445,6 C480,6 510,12 525,30 L565,58 L569,120 L525,106 L523,368 L367,368 L365,106 L321,120 L325,58 Z" fill="#fff" stroke="#ccc" stroke-width="1.5"/>' +
+    '<path d="M409,20 C417,46 473,46 481,20" fill="none" stroke="#ccc" stroke-width="1.5"/>' +
+    // Labels
+    '<text x="160" y="340" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#aaa" letter-spacing="2">FRONT</text>' +
+    '<text x="445" y="340" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#aaa" letter-spacing="2">BACK</text>' +
+    '<text x="300" y="380" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#bbb">Add tshirt.jpg to folder</text>';
+
+  cont.appendChild(svg);
+  window._svgMode = true;
+
+  G.cw = 600; G.ch = 380;
+  G.dx = 160; G.dy = 160;
+  G.tx = 160; G.ty = 240;
+
+  document.getElementById('lbl-front').style.left = '27%';
+  document.getElementById('lbl-back').style.left = '75%';
+}
+
+/* ════════════════════════════════════════
+   COLOUR — multiply blend on white shirt
+════════════════════════════════════════ */
+function setColor(el, hex, name) {
+  document.querySelectorAll('.sw').forEach(function(s){ s.classList.remove('sl'); });
+  el.classList.add('sl');
+  G.color = hex; G.cname = name;
+
+  var tint = document.getElementById('shirt-tint');
+
+  if (window._svgMode) {
+    // Colour SVG shirt shapes directly
+    var svgFront = document.getElementById('svg-front');
+    var svgBack  = document.getElementById('svg-back');
+    var fill = (hex === '#ffffff') ? '#fff' : hex;
+    if (svgFront) svgFront.setAttribute('fill', fill);
+    if (svgBack)  svgBack.setAttribute('fill', fill);
+    tint.style.opacity = '0';
+  } else {
+    /*
+      The shirt photo is WHITE.
+      mix-blend-mode:multiply: white(#fff) × color = color ✓
+      For black we use a different approach — soft-light or straight dark overlay.
+    */
+    if (hex === '#ffffff') {
+      // Already white — no tint
+      tint.style.opacity = '0';
+    } else if (hex === '#111111') {
+      // Black — use luminosity darken trick
+      tint.style.background = '#000';
+      tint.style.mixBlendMode = 'multiply';
+      tint.style.opacity = '0.88';
+    } else {
+      tint.style.background = hex;
+      tint.style.mixBlendMode = 'multiply';
+      tint.style.opacity = '0.85';
+    }
+  }
+
+  document.getElementById('s-cl').textContent = name;
+  sessionStorage.setItem('pc_color', name);
+}
+
+/* ════════════════════════════════════════
+   SIZE
+════════════════════════════════════════ */
+function setSize(el, sz) {
+  document.querySelectorAll('.sz').forEach(function(b){ b.classList.remove('sl'); });
+  el.classList.add('sl');
+  G.size = sz;
+  document.getElementById('s-sz').textContent = sz;
+  sessionStorage.setItem('pc_size', sz);
+}
+
+/* ════════════════════════════════════════
+   QUANTITY  (0 – 9999)
+════════════════════════════════════════ */
+function changeQty(delta) {
+  var val = G.qty + delta;
+  val = Math.max(0, Math.min(9999, val));
+  G.qty = val;
+  document.getElementById('qty-input').value = val;
+  updatePrice();
+}
+
+function onQtyInput(val) {
+  var n = parseInt(val, 10);
+  if (isNaN(n) || n < 0) n = 0;
+  if (n > 9999) n = 9999;
+  G.qty = n;
+  updatePrice();
+}
+
+function onQtyBlur(val) {
+  var n = parseInt(val, 10);
+  if (isNaN(n) || n < 0) n = 0;
+  if (n > 9999) n = 9999;
+  G.qty = n;
+  document.getElementById('qty-input').value = n;
+  updatePrice();
+}
+
+function updatePrice() {
+  var qty  = Math.max(0, G.qty);
+  var total = qty * UNIT_PRICE;
+
+  document.getElementById('s-qty').textContent = qty;
+  document.getElementById('total-price').textContent = '₹' + total.toLocaleString('en-IN');
+  document.getElementById('price-breakdown').textContent = qty + ' × ₹' + UNIT_PRICE + ' = ₹' + total.toLocaleString('en-IN');
+
+  sessionStorage.setItem('pc_qty',   qty);
+  sessionStorage.setItem('pc_total', total);
+}
+
+/* ════════════════════════════════════════
+   FILE UPLOAD
+════════════════════════════════════════ */
+function onFileSelect(e) {
+  var f = e.target.files[0];
+  if (f) readFile(f);
+  e.target.value = ''; // allow re-select same file
+}
+
+function readFile(f) {
+  var r = new FileReader();
+  r.onload = function(ev) { loadDesign(ev.target.result); };
+  r.readAsDataURL(f);
+}
+
+function loadDesign(src) {
+  var imgEl = document.getElementById('design-img');
+  imgEl.onload = function() {
+    placeDesign();
+    document.getElementById('design-el').style.display = 'block';
+    document.getElementById('drop-hint').classList.add('gone');
+    document.getElementById('btn-rm-d').style.display = 'block';
+    document.getElementById('warn-msg').style.display = 'none';
+    sessionStorage.setItem('pc_design', 'yes');
+  };
+  imgEl.onerror = function() {
+    alert('Could not load image. Please try a different file.');
+  };
+  imgEl.src = src;
+}
+
+function removeDesign() {
+  document.getElementById('design-el').style.display = 'none';
+  document.getElementById('btn-rm-d').style.display = 'none';
+  checkHint();
+}
+
+function checkHint() {
+  var hasD = document.getElementById('design-el').style.display === 'block';
+  var hasT = document.getElementById('text-el').style.display   === 'block';
+  if (!hasD && !hasT) document.getElementById('drop-hint').classList.remove('gone');
+}
+
+/* ════════════════════════════════════════
+   DESIGN POSITION + TRANSFORM
+   Scale = % of container width (not half-panel)
+   So design fits naturally on either panel.
+════════════════════════════════════════ */
+function placeDesign() {
+  var cont = document.getElementById('shirt-container');
+  G.dx = cont.offsetWidth  * 0.25;
+  G.dy = cont.offsetHeight * 0.36;
+  applyDesignTransform();
+}
+
+function applyDesignTransform() {
+  var cont = document.getElementById('shirt-container');
+  var el   = document.getElementById('design-el');
+  var cw = cont.offsetWidth  || G.cw;
+  var ch = cont.offsetHeight || G.ch;
+  if (!cw || !ch) return;
+
+  // Width = scale% of HALF the container (one panel width)
+  var halfW = cw / 2;
+  var dw = Math.max(20, halfW * G.scale / 100);
+  el.style.width = dw + 'px';
+
+  var hw = dw / 2;
+  var hh = (el.offsetHeight > 0 ? el.offsetHeight : dw) / 2;
+
+  // Clamp so design centre stays fully within the container
+  G.dx = clamp(G.dx, hw, cw - hw);
+  G.dy = clamp(G.dy, hh, ch - hh);
+
+  el.style.left      = (G.dx - hw) + 'px';
+  el.style.top       = (G.dy - hh) + 'px';
+  el.style.transform = 'rotate(' + G.rotate + 'deg)';
+  el.style.opacity   = G.opacity / 100;
+}
+
+function onScale(v) {
+  G.scale = Number(v);
+  document.getElementById('v-sc').textContent = v + '%';
+  applyDesignTransform();
+}
+
+function onRotate(v) {
+  G.rotate = Number(v);
+  document.getElementById('v-ro').textContent = v + '°';
+  applyDesignTransform();
+}
+
+function onOpacity(v) {
+  G.opacity = Number(v);
+  document.getElementById('v-op').textContent = v + '%';
+  document.getElementById('design-el').style.opacity = v / 100;
+}
+
+/* ════════════════════════════════════════
+   TEXT
+════════════════════════════════════════ */
+function onTxtSize(v) {
+  G.tsize = Number(v);
+  document.getElementById('v-ts').textContent = v;
+  var el = document.getElementById('text-el');
+  el.style.fontSize = v + 'px';
+  clampText();
+}
+
+function addText() {
+  var txt = document.getElementById('txt-inp').value.trim();
+  if (!txt) { document.getElementById('txt-inp').focus(); return; }
+  var col = document.getElementById('txt-col').value;
+  var el  = document.getElementById('text-el');
+  el.textContent = txt;
+  el.style.color    = col;
+  el.style.fontSize = G.tsize + 'px';
+  el.style.display  = 'block';
+
+  var cont = document.getElementById('shirt-container');
+  G.tx = (cont.offsetWidth  || G.cw) * 0.25;
+  G.ty = (cont.offsetHeight || G.ch) * 0.56;
+  clampText();
+
+  document.getElementById('drop-hint').classList.add('gone');
+  document.getElementById('btn-rm-t').style.display = 'block';
+  document.getElementById('warn-msg').style.display = 'none';
+}
+
+function removeText() {
+  document.getElementById('text-el').style.display = 'none';
+  document.getElementById('btn-rm-t').style.display = 'none';
+  checkHint();
+}
+
+function clampText() {
+  var cont = document.getElementById('shirt-container');
+  var el   = document.getElementById('text-el');
+  var cw = cont.offsetWidth  || G.cw;
+  var ch = cont.offsetHeight || G.ch;
+  var tw = el.offsetWidth  || 80;
+  var th = el.offsetHeight || (G.tsize + 8);
+  G.tx = clamp(G.tx, tw / 2, cw - tw / 2);
+  G.ty = clamp(G.ty, th / 2, ch - th / 2);
+  el.style.left = (G.tx - tw / 2) + 'px';
+  el.style.top  = (G.ty - th / 2) + 'px';
+}
+
+/* ════════════════════════════════════════
+   DRAG — constrained inside shirt-container
+════════════════════════════════════════ */
+function initDrag(el, type) {
+  var active = false;
+  var startMX = 0, startMY = 0, origCX = 0, origCY = 0;
+
+  function onDown(cx, cy) {
+    active  = true;
+    startMX = cx; startMY = cy;
+    origCX  = (type === 'design') ? G.dx : G.tx;
+    origCY  = (type === 'design') ? G.dy : G.ty;
+    el.classList.add('ring');
+    var other = document.getElementById(type === 'design' ? 'text-el' : 'design-el');
+    other.classList.remove('ring');
+  }
+
+  function onMove(cx, cy) {
+    if (!active) return;
+    var cont = document.getElementById('shirt-container');
+    var cw = cont.offsetWidth  || G.cw;
+    var ch = cont.offsetHeight || G.ch;
+    var dx = cx - startMX;
+    var dy = cy - startMY;
+
+    if (type === 'design') {
+      var dw = el.offsetWidth  || 60;
+      var dh = el.offsetHeight || 60;
+      G.dx = clamp(origCX + dx, dw / 2, cw - dw / 2);
+      G.dy = clamp(origCY + dy, dh / 2, ch - dh / 2);
+      applyDesignTransform();
+    } else {
+      var tw = el.offsetWidth  || 80;
+      var th = el.offsetHeight || G.tsize + 8;
+      G.tx = clamp(origCX + dx, tw / 2, cw - tw / 2);
+      G.ty = clamp(origCY + dy, th / 2, ch - th / 2);
+      el.style.left = (G.tx - tw / 2) + 'px';
+      el.style.top  = (G.ty - th / 2) + 'px';
+    }
+  }
+
+  function onUp() { active = false; }
+
+  // Mouse events
+  el.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    onDown(e.clientX, e.clientY);
+    document.addEventListener('mousemove', onMM);
+    document.addEventListener('mouseup',   onMU);
+  });
+  function onMM(e) { onMove(e.clientX, e.clientY); }
+  function onMU()  { onUp(); document.removeEventListener('mousemove', onMM); document.removeEventListener('mouseup', onMU); }
+
+  // Touch events
+  el.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    onDown(t.clientX, t.clientY);
+    document.addEventListener('touchmove', onTM, { passive: false });
+    document.addEventListener('touchend',  onTE);
+  }, { passive: false });
+  function onTM(e) { e.preventDefault(); var t = e.touches[0]; onMove(t.clientX, t.clientY); }
+  function onTE()  { onUp(); document.removeEventListener('touchmove', onTM); document.removeEventListener('touchend', onTE); }
+}
+
+/* ════════════════════════════════════════
+   UTILS
+════════════════════════════════════════ */
+function clamp(v, mn, mx) {
+  return Math.max(mn, Math.min(mx, v));
+}
+
+/* ════════════════════════════════════════
+   PROCEED TO PAYMENT
+════════════════════════════════════════ */
+function doProceed() {
+  var hasD = document.getElementById('design-el').style.display === 'block';
+  var hasT = document.getElementById('text-el').style.display   === 'block';
+  if (!hasD && !hasT) {
+    document.getElementById('warn-msg').style.display = 'block';
+    return;
+  }
+  if (G.qty < 1) {
+    document.getElementById('warn-msg').textContent = '⚠ Please enter a quantity of at least 1';
+    document.getElementById('warn-msg').style.display = 'block';
+    return;
+  }
+  sessionStorage.setItem('pc_size',  G.size);
+  sessionStorage.setItem('pc_color', G.cname);
+  sessionStorage.setItem('pc_qty',   G.qty);
+  sessionStorage.setItem('pc_total', G.qty * UNIT_PRICE);
+  location.href = 'payment.html';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MockUp – The Mockups You Need, Without the Learning Curve</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--p:#7c3aed;--p2:#6d28d9;--p3:#ede9fe;--ink:#111827;--gray:#6b7280;--border:#e5e7eb;--white:#fff}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--p);border-radius:3px}
+nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:64px}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;color:var(--p)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:0.92rem;font-weight:600;color:var(--ink);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--p)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.btn-si{font-size:0.88rem;font-weight:600;color:var(--ink);text-decoration:none;padding:8px 14px}
+.btn-si:hover{color:var(--p)}
+.btn-cta{padding:10px 22px;background:var(--p);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,.35)}
+.btn-cta:hover{background:var(--p2);transform:translateY(-1px)}
+/* HERO */
+.hero{min-height:calc(100vh - 64px);display:flex;align-items:center;padding:60px 60px 0;gap:60px;background:linear-gradient(135deg,#fff 0%,#faf5ff 60%,#ede9fe 100%);overflow:hidden;position:relative}
+.hero::before{content:'';position:absolute;top:-120px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.12) 0%,transparent 70%);pointer-events:none}
+.ht{flex:1;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--p3);color:var(--p);font-size:.82rem;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:20px}
+.ht h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,4vw,3.8rem);font-weight:800;line-height:1.1;color:var(--ink);letter-spacing:-1px;margin-bottom:18px}
+.ht h1 em{color:var(--p);font-style:italic}
+.ht p{font-size:1rem;color:var(--gray);line-height:1.75;max-width:480px;margin-bottom:32px}
+.hbtns{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn-hp{padding:14px 28px;background:var(--p);color:#fff;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 6px 20px rgba(124,58,237,.4);transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-hp:hover{background:var(--p2);transform:translateY(-2px)}
+.btn-hs{padding:14px 28px;background:#fff;color:var(--ink);border:2px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-hs:hover{border-color:var(--p);color:var(--p)}
+.stats{display:flex;gap:36px;margin-top:38px;flex-wrap:wrap}
+.stat strong{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--p);display:block}
+.stat span{font-size:.8rem;color:var(--gray)}
+/* Hero card */
+.hv{flex:1;display:flex;align-items:flex-end;justify-content:center;min-height:460px;position:relative}
+.hcard{background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.14);padding:18px;width:500px;max-width:100%;border:1px solid var(--border);position:relative;z-index:1}
+.hcard-top{background:var(--p);border-radius:12px;padding:11px 18px;display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px}
+.tb{width:30px;height:30px;border-radius:7px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;cursor:pointer;transition:background .2s}
+.tb:hover{background:rgba(255,255,255,.28)}
+.hma{background:#f3f4f6;border-radius:12px;min-height:260px;display:flex;align-items:center;justify-content:center;position:relative}
+.sdemo{width:190px;position:relative}
+.sdemo svg{width:100%;height:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.2))}
+.dbox{position:absolute;top:28%;left:50%;transform:translateX(-50%);width:76px;height:56px;border:2px dashed rgba(124,58,237,.7);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.cdot{position:absolute;width:9px;height:9px;background:var(--p);border-radius:50%;border:2px solid #fff}
+.cdot:nth-child(1){top:-4px;left:-4px}.cdot:nth-child(2){top:-4px;right:-4px}.cdot:nth-child(3){bottom:-4px;left:-4px}.cdot:nth-child(4){bottom:-4px;right:-4px}
+.ftag{position:absolute;background:#fff;border-radius:10px;padding:9px 14px;box-shadow:0 8px 28px rgba(0,0,0,.12);font-size:.76rem;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.fd{width:7px;height:7px;border-radius:50%;background:#10b981}
+/* BRANDS */
+.brands{background:#f9fafb;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 60px;display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+.blabel{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af;white-space:nowrap}
+.blist{display:flex;align-items:center;gap:32px;flex-wrap:wrap;flex:1}
+.bi{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:#d1d5db;text-transform:uppercase;transition:color .2s;letter-spacing:1px}
+.bi:hover{color:var(--gray)}
+/* SECTIONS */
+section{padding:90px 60px}
+.slabel{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--p);margin-bottom:10px}
+.stitle{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:800;color:var(--ink);letter-spacing:-.5px;line-height:1.15}
+.stitle em{color:var(--p);font-style:normal}
+.ssub{font-size:.95rem;color:var(--gray);line-height:1.7;margin-top:11px;max-width:540px}
+/* HOW */
+.hiw{display:flex;gap:56px;align-items:flex-start;flex-wrap:wrap}
+.hiw-t{flex:1;min-width:250px}
+.scards{display:flex;flex-direction:column;gap:14px;flex:2;min-width:270px}
+.sc{display:flex;gap:16px;align-items:flex-start;background:#fafafa;border:1px solid var(--border);border-radius:14px;padding:18px 20px;transition:all .2s}
+.sc:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);border-color:var(--p)}
+.sn{width:38px;height:38px;border-radius:9px;background:var(--p3);color:var(--p);font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc h4{font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.sc p{font-size:.81rem;color:var(--gray);line-height:1.5}
+/* FEATURES */
+.feat-sec{background:#f9fafb}
+.fh{text-align:center;margin-bottom:52px}
+.fh .ssub{margin:11px auto 0}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.fc{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px 22px;transition:all .25s;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--p);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.fc:hover{box-shadow:0 8px 32px rgba(0,0,0,.1);transform:translateY(-3px);border-color:var(--p3)}
+.fc:hover::before{transform:scaleX(1)}
+.fi{width:50px;height:50px;border-radius:12px;background:var(--p);color:#fff;font-size:1.4rem;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.fc h3{font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:7px}
+.fc p{font-size:.82rem;color:var(--gray);line-height:1.6}
+/* EDITOR */
+.ei{display:flex;gap:56px;align-items:center;flex-wrap:wrap}
+.et{flex:1;min-width:250px}
+.epoints{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.ep{display:flex;gap:11px;align-items:flex-start}
+.epd{width:22px;height:22px;border-radius:6px;background:var(--p3);color:var(--p);font-size:.76rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ep p{font-size:.86rem;color:var(--gray);line-height:1.5}
+.ep p b{color:var(--ink)}
+.eviz{flex:1.4;min-width:280px;background:#f3f4f6;border-radius:18px;overflow:hidden;border:1px solid var(--border);box-shadow:0 16px 56px rgba(0,0,0,.1)}
+.evbar{background:var(--p);padding:11px 18px;display:flex;align-items:center;justify-content:center;gap:14px}
+.evt{width:32px;height:32px;border-radius:7px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.95rem;cursor:pointer}
+.evt:hover{background:rgba(255,255,255,.3)}
+.evb{display:flex}
+.evsb{width:170px;background:#fff;border-right:1px solid var(--border);padding:11px}
+.evl{display:flex;align-items:center;justify-content:space-between;padding:9px 11px;border-radius:8px;margin-bottom:5px;background:#f9fafb;border:1px solid var(--border);font-size:.75rem;font-weight:600;color:var(--ink);cursor:pointer}
+.evl:hover{border-color:var(--p);background:var(--p3)}
+.evli{display:flex;gap:5px;color:#9ca3af;font-size:.82rem}
+.evcanvas{flex:1;background:#e5e7eb;min-height:260px;display:flex;align-items:center;justify-content:center;padding:18px}
+/* TESTIMONIALS */
+.testi{background:#faf5ff}
+.th{text-align:center;margin-bottom:52px}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tc{background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;transition:all .2s}
+.tc:hover{box-shadow:0 8px 32px rgba(0,0,0,.1);transform:translateY(-3px)}
+.tu{display:flex;align-items:center;gap:11px;margin-bottom:13px}
+.tav{width:44px;height:44px;border-radius:50%;background:var(--p3);color:var(--p);font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tui strong{font-size:.88rem;font-weight:700;color:var(--ink);display:block}
+.tui span{font-size:.73rem;color:var(--p)}
+.stars{color:#f59e0b;font-size:.82rem;letter-spacing:1px;margin-bottom:9px}
+.tc p{font-size:.83rem;color:#374151;line-height:1.65}
+/* CTA */
+.cta{background:var(--p);text-align:center;padding:90px 60px;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.1) 0%,transparent 60%);pointer-events:none}
+.cta h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.5px}
+.cta p{font-size:.95rem;color:rgba(255,255,255,.72);margin-bottom:30px;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-cw{padding:13px 34px;background:#fff;color:var(--p);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.98rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.btn-cw:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.cprice{margin-top:18px;font-size:.85rem;color:rgba(255,255,255,.6)}
+.cprice strong{color:#fff}
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.5);padding:36px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px}
+.flogo{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--p)}
+footer p{font-size:.8rem}
+.flinks{display:flex;gap:18px}
+.flinks a{font-size:.8rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:#fff}
+/* RESPONSIVE */
+@media(max-width:1024px){nav,section,.brands,.cta,footer{padding-left:30px;padding-right:30px}.hero{padding:48px 30px 40px;flex-direction:column;text-align:center}.ht p{margin:0 auto 32px}.hbtns{justify-content:center}.stats{justify-content:center}.hv{width:100%;min-height:auto}.hiw,.ei{flex-direction:column}.tgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){nav{padding:0 16px}.nav-links{display:none}section{padding:52px 16px}.brands{padding:16px}.fgrid,.tgrid{grid-template-columns:1fr}.hero{padding:36px 16px 40px}.cta{padding:60px 16px}footer{padding:24px 16px;flex-direction:column;text-align:center}}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .6s,transform .6s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">MockUp</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#reviews">Reviews</a>
+  </div>
+  <div class="nav-right">
+    <a href="login.html" class="btn-si">Sign In</a>
+    <a href="login.html" class="btn-cta">Get Started Free →</a>
+  </div>
+</nav>
+<!-- HERO -->
+<section class="hero">
+  <div class="ht">
+    <div class="badge"><span>✦</span> 12,000+ mockups created</div>
+    <h1>The mockups you need, <em>without</em> the learning curve.</h1>
+    <p>Create product-ready mockups in minutes with a simple visual editor. Upload your design, place it on our premium sweater, and order — just ₹299 all-in.</p>
+    <div class="hbtns">
+      <a href="login.html" class="btn-hp">Start Designing Now →</a>
+      <a href="#how" class="btn-hs">▶ See How It Works</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>₹299</strong><span>per print order</span></div>
+      <div class="stat"><strong>2D</strong><span>live mockup editor</span></div>
+      <div class="stat"><strong>24h</strong><span>dispatch time</span></div>
+    </div>
+  </div>
+  <div class="hv">
+    <div class="hcard">
+      <div class="hcard-top">
+        <div class="tb">↩</div><div class="tb">↪</div><div class="tb">⟳</div><div class="tb">⊕</div><div class="tb">⬇</div>
+      </div>
+      <div class="hma">
+        <div class="sdemo">
+          <svg viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="120" cy="277" rx="88" ry="6" fill="rgba(0,0,0,0.08)"/>
+            <path d="M70,18 C82,4 102,0 130,0 C158,0 178,4 190,18 L230,50 L238,110 L192,96 L190,268 L70,268 L68,96 L22,110 L30,50 Z" fill="#7c3aed" stroke="#6d28d9" stroke-width="1"/>
+            <path d="M96,10 C102,34 158,34 164,10" fill="none" stroke="#6d28d9" stroke-width="2"/>
+            <rect x="22" y="94" width="48" height="16" rx="5" fill="#6d28d9"/>
+            <rect x="170" y="94" width="48" height="16" rx="5" fill="#6d28d9"/>
+            <rect x="68" y="260" width="124" height="12" rx="4" fill="#6d28d9"/>
+          </svg>
+          <div class="dbox">
+            <div class="cdot"></div><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div>
+            <span>🎨</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ftag" style="top:18px;right:-10px"><div class="fd"></div> Design placed ✓</div>
+    <div class="ftag" style="bottom:80px;left:-20px;animation-delay:.8s">🎨 12 colour options</div>
+  </div>
+</section>
+<!-- BRANDS -->
+<div class="brands">
+  <span class="blabel">Trusted by designers at</span>
+  <div class="blist">
+    <span class="bi">Spotify</span><span class="bi">Gildan</span><span class="bi">Bella+Canvas</span>
+    <span class="bi">Next Level</span><span class="bi">Warner</span><span class="bi">Republic</span>
+  </div>
+</div>
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="hiw fade-up">
+    <div class="hiw-t">
+      <div class="slabel">How It Works</div>
+      <h2 class="stitle">Three steps to your perfect print</h2>
+      <p class="ssub">No Photoshop. No design skills needed. Just upload, position, and order.</p>
+      <br/><br/>
+      <a href="login.html" class="btn-cta" style="display:inline-block;padding:12px 24px;font-size:.92rem">Try It Free →</a>
+    </div>
+    <div class="scards">
+      <div class="sc"><div class="sn">1</div><div><h4>Create your account</h4><p>Sign in or create a free account with your Gmail in under 30 seconds.</p></div></div>
+      <div class="sc"><div class="sn">2</div><div><h4>Upload & position your design</h4><p>Drag your PNG or JPG onto the live sweater mockup. Scale, rotate, and place it exactly where you want.</p></div></div>
+      <div class="sc"><div class="sn">3</div><div><h4>Pay ₹299 & we handle the rest</h4><p>Scan the GPay QR, confirm your order, and receive your printed sweater within 3–5 days.</p></div></div>
+    </div>
+  </div>
+</section>
+<!-- FEATURES -->
+<section class="feat-sec" id="features">
+  <div class="fh fade-up">
+    <div class="slabel">Core Features</div>
+    <h2 class="stitle">Everything you need to design & order</h2>
+    <p class="ssub">We give you all the tools you'll ever need — no learning curve, no extra software.</p>
+  </div>
+  <div class="fgrid fade-up">
+    <div class="fc"><div class="fi">🖼️</div><h3>2D Live Mockup Editor</h3><p>See your design on a real sweater photo in real-time. Drag, scale, rotate and position with pixel precision.</p></div>
+    <div class="fc"><div class="fi">🎨</div><h3>12 Garment Colours</h3><p>Choose from 12 colours including Black, White, Red, Blue, Purple and more — all with live colour preview via CSS blend modes.</p></div>
+    <div class="fc"><div class="fi">📐</div><h3>Full Size Range XS–XXL</h3><p>Pick XS through XXL. Your design scales perfectly for every size with our print-ready positioning system.</p></div>
+    <div class="fc"><div class="fi">✍️</div><h3>Custom Text Overlay</h3><p>Add your own text directly on the garment. Choose colour, size, and drag it anywhere on the mockup canvas.</p></div>
+    <div class="fc"><div class="fi">🔄</div><h3>Front & Back Views</h3><p>Toggle between front and back views instantly. Design both sides of your garment with the same simple editor.</p></div>
+    <div class="fc"><div class="fi">📦</div><h3>Print & Deliver in ₹299</h3><p>Flat ₹299 pricing — covers printing, packaging, and delivery. No hidden fees, no minimums. Pay via GPay.</p></div>
+  </div>
+</section>
+<!-- EDITOR PREVIEW -->
+<section>
+  <div class="ei fade-up">
+    <div class="et">
+      <div class="slabel">The Editor</div>
+      <h2 class="stitle">A live editor that just <em>works</em></h2>
+      <p class="ssub">No confusing menus. Upload your design and it appears on the garment instantly.</p>
+      <div class="epoints">
+        <div class="ep"><div class="epd">✦</div><p><b>Add your design</b> — upload PNG, JPG or SVG. Transparent PNG recommended.</p></div>
+        <div class="ep"><div class="epd">✦</div><p><b>Change garment colour</b> — live colour tinting on the real sweater photo.</p></div>
+        <div class="ep"><div class="epd">✦</div><p><b>Switch mockup view</b> — toggle Front and Back in one click.</p></div>
+        <div class="ep"><div class="epd">✦</div><p><b>Design stays on canvas</b> — dragging is physically clamped so it never leaves the garment.</p></div>
+      </div>
+      <a href="login.html" class="btn-cta" style="display:inline-block;margin-top:26px;padding:12px 24px;font-size:.92rem">Open the Editor →</a>
+    </div>
+    <div class="eviz">
+      <div class="evbar"><div class="evt">↩</div><div class="evt">↪</div><div class="evt">⟳</div><div class="evt">⊕</div><div class="evt">⬇</div></div>
+      <div class="evb">
+        <div class="evsb">
+          <div class="evl">Smiley Design<span class="evli">☰🔒🗑</span></div>
+          <div class="evl" style="border-color:var(--p);background:var(--p3)">Shirt Colour<span class="evli">🔒</span></div>
+          <div class="evl">Text Layer<span class="evli">☰🔒🗑</span></div>
+          <div class="evl">Background<span class="evli">☰🔒🗑</span></div>
+          <div style="margin-top:10px;background:#1a1a1a;border-radius:7px;height:55px;width:100%;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:linear-gradient(to right,transparent,#7c3aed)"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent,#000)"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:7px">
+            <div style="width:20px;height:20px;background:#7c3aed;border-radius:4px"></div>
+            <span style="font-family:monospace;font-size:.72rem;color:#374151">#7c3aed</span>
+          </div>
+        </div>
+        <div class="evcanvas">
+          <svg width="160" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 8px 20px rgba(0,0,0,.2))">
+            <path d="M55,14 C68,2 88,0 108,0 C128,0 148,2 161,14 L196,42 L200,92 L162,80 L160,230 L56,230 L54,80 L16,92 L20,42 Z" fill="#7c3aed" stroke="#6d28d9" stroke-width="1"/>
+            <path d="M79,8 C84,28 132,28 137,8" fill="none" stroke="#6d28d9" stroke-width="1.5"/>
+            <circle cx="108" cy="130" r="38" fill="#f59e0b" opacity=".9"/>
+            <circle cx="97" cy="122" r="5" fill="#1a1a1a"/>
+            <circle cx="119" cy="122" r="5" fill="#1a1a1a"/>
+            <path d="M96,142 Q108,158 120,142" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- TESTIMONIALS -->
+<section class="testi" id="reviews">
+  <div class="th fade-up">
+    <div class="slabel">Reviews</div>
+    <h2 class="stitle">What our customers are saying about <em>MockUp</em></h2>
+    <p class="ssub" style="margin:11px auto 0">Find out how our users are experiencing MockUp and the different ways it has benefited their brands.</p>
+  </div>
+  <div class="tgrid fade-up">
+    <div class="tc"><div class="tu"><div class="tav">E</div><div class="tui"><strong>Emily</strong><span>✅ Verified User</span></div></div><div class="stars">★★★★★</div><p>Didn't think I'd need it, but now I use it all the time. Mockups are top-notch and the pricing is unbeatable at ₹299.</p></div>
+    <div class="tc"><div class="tu"><div class="tav" style="background:#fef3c7;color:#d97706">M</div><div class="tui"><strong>Montrell</strong><span>✅ Verified User</span></div></div><div class="stars">★★★★★</div><p>The quality of the mockups is exceptional. My product images look professional and polished. The platform is user-friendly and I've created stunning images in no time.</p></div>
+    <div class="tc"><div class="tu"><div class="tav" style="background:#d1fae5;color:#065f46">W</div><div class="tui"><strong>William</strong><span>✅ Verified User</span></div></div><div class="stars">★★★★★</div><p>OMG my products look 100x better. Can't believe I didn't try this sooner. The sweater mockup is absolutely realistic!</p></div>
+    <div class="tc"><div class="tu"><div class="tav" style="background:#fee2e2;color:#991b1b">R</div><div class="tui"><strong>Riya</strong><span>✅ Verified User</span></div></div><div class="stars">★★★★★</div><p>MockUp has been an incredible tool for my small business. Extremely high quality mockups and so easy to customise to fit my brand.</p></div>
+    <div class="tc"><div class="tu"><div class="tav" style="background:#ede9fe;color:#5b21b6">F</div><div class="tui"><strong>Fabio</strong><span>✅ Verified User</span></div></div><div class="stars">★★★★★</div><p>I'm so happy I found MockUp. The mockups are beautiful, and the customisation options make it easy to create images that match my brand perfectly.</p></div>
+    <div class="tc"><div class="tu"><div class="tav" style="background:#e0f2fe;color:#0369a1">S</div><div class="tui"><strong>Salih</strong><span>✅ Verified User</span></div></div><div class="stars">★★★★★</div><p>Pretty surprised by how good this is. The mockups are super clean and my product images look so much better. Definitely a good find.</p></div>
+  </div>
+  <div style="text-align:center;margin-top:42px"><a href="login.html" class="btn-cta" style="display:inline-block;padding:13px 30px;font-size:.95rem">Join Our Designers →</a></div>
+</section>
+<!-- CTA -->
+<section class="cta">
+  <h2>Start Creating Today</h2>
+  <p>One flat price. No subscriptions. No hidden fees. Just great mockups and real prints at ₹299.</p>
+  <a href="login.html" class="btn-cw">Get Started Free →</a>
+  <div class="cprice">Only <strong>₹299 per printed order</strong> — includes printing + delivery</div>
+</section>
+<footer>
+  <div class="flogo">MockUp</div>
+  <p>© 2025 MockUp Studio. All rights reserved.</p>
+  <div class="flinks"><a href="login.html">Sign In</a><a href="#features">Features</a><a href="#reviews">Reviews</a></div>
+</footer>
+<script>
+const ob = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');ob.unobserve(e.target);} });
+}, {threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el => ob.observe(el));
+</script>
+</body>
+</html>
